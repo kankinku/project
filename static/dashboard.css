@@ -9,9 +9,66 @@
 
 body{
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
     background: linear-gradient(to right, #e2e2e2, #c9d6ff);
     color: #333;
+}
+
+.schedule__container{
+    background-color: transparent;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+}
+
+.days__container{
+    width: 100%;
+    display: flex;
+}
+
+.corner{
+    width: 50px;
+    height: 70px;
+    margin: 2px;
+}
+
+.day{
+    width: 100px;
+    border: solid 2px white;
+    color: #9bafd9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2px;
+}
+
+.part__day{
+    display: flex;
+}
+
+.time{
+    width: 50px;
+    height: 70px;
+    text-align: center;
+    color: #9bafd9;
+    border: solid 2px white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2px;
+}
+
+.task{
+    background-color: white;
+    height: 70px;
+    width: 100px;
+    margin: 2px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
 }
