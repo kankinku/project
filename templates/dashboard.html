@@ -1,0 +1,18 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'dashboard.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Hello, {{ user.email }}!</h1>
+        <p>You are now logged in to the dashboard.</p>
+        <a href="{% url 'logout' %}" class="logout">Logout</a>
+    </div>
+</body>
+</html>
+
+
+{% comment %}  이런식으로 정보 불러오면 됨 {{ user.email }} {% endcomment %}

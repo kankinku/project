@@ -1,0 +1,54 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'login_page.css' %}">
+</head>
+<body>
+    <div class="container">
+        <!-- 로그인 폼 -->
+        <div class="form-box active" id="login-form">
+            <form method="post">
+                {% csrf_token %}
+                <h2>Login</h2>
+                {{ login_form.email }}
+                {{ login_form.passwd }}
+                <button type="submit" name="login">Login</button>
+                <p>Don't have an account? <a href="#" onclick="showForm('register-form')">Register</a></p>
+            </form>
+        </div>
+
+        <!-- 회원가입 폼 -->
+        <div class="form-box" id="register-form">
+            <form method="post">
+                {% csrf_token %}
+                <h2>Register</h2>
+                {{ register_form.username }}
+                {{ register_form.email }}
+                {{ register_form.passwd }}
+                {{ register_form.role }}
+                <button type="submit" name="register">Register</button>
+                <p>Already have an account? <a href="#" onclick="showForm('login-form')">Login</a></p>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function showForm(formId) {
+            document.querySelectorAll(".form-box").forEach(form => form.classList.remove("active"));
+            document.getElementById(formId).classList.add("active");
+        }
+
+        function show_error(error_message) {
+            alert(error_message);
+        }
+    </script>
+
+    {% if error_message %}
+    <script>
+        show_error("{{ error_message|escapejs }}");
+    </script>
+    {% endif %}
+</body>
+</html>
