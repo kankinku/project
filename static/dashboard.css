@@ -17,6 +17,69 @@ body{
     color: #333;
 }
 
+.logout-btn {
+    font-size: 30px;
+    color: white;
+    position: fixed;   
+    top: 0;         
+    right: 0;
+    margin-top: 10px;
+    margin-right: 30px;
+    width: 120px;
+    height: 55px;
+    /* border: solid 2px white; */
+    text-align: center;
+    justify-content: center;
+}
+
+.delete-btn {
+    font-size: 30px;
+    color: white;
+    position: fixed;   
+    top: 0;         
+    right: 150px;
+    margin-top: 10px;
+    margin-right: 10px;
+    width: 120px;
+    height: 55px;
+    /* border: solid 2px white; */
+    text-align: center;
+    justify-content: center;
+}
+
+.create-class-btn{
+    font-size: 30px;
+    color: white;
+    position: fixed;   
+    top: 0;         
+    right: 280px;
+    margin-top: 10px;
+    margin-right: 10px;
+    width: 120px;
+    height: 55px;
+    /* border: solid 2px white; */
+    text-align: center;
+    justify-content: center;
+}
+.container {
+    position: fixed;   /* 화면에 고정 */
+    top: 0;             /* 위에서 0px */
+    left: 0;            /* 왼쪽에서 0px */
+    width: 100%;        /* 전체 너비 */
+    height: 60px;       /* 높이 */
+
+    background-color: #c9d6ff;
+    color: white;
+    display: flex;
+    z-index: 1000;      /* 다른 요소 위에 표시 */
+  }
+
+  .head-name {
+    margin-top: 5px;
+    margin-left: 30px;
+  }
+
+
 .schedule__container{
     background-color: transparent;
     display: flex;

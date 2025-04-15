@@ -14,3 +14,21 @@ class SchoolUser(models.Model):
             db_table = 'user_info'
             app_label = 'loginPage'  
             managed = False 
+
+class user_info(models.Model):
+    UID = models.CharField(max_length=50, primary_key=True)  # UID는 고유해야 하므로 primary_key로 설정
+    name = models.CharField(max_length=100)
+    class Meta:
+        db_table = 'user_info'  # 테이블 이름 지정
+
+
+class ClassInfo(models.Model):
+    UID = models.ForeignKey(user_info, on_delete=models.CASCADE, db_column='UID')  # 외래키로 연결
+    class_name = models.CharField(max_length=100)
+    class_type = models.CharField(max_length=50)
+    class_time = models.CharField(max_length=50)
+    class_grade = models.CharField(max_length=10)
+    create_grade = models.CharField(max_length=10)
+    created_at = models.DateTimeField(auto_now_add=True)
+    class Meta:
+        db_table = 'class_info' 

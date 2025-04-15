@@ -1,0 +1,26 @@
+{% load static %}
+<html lang="ko-kr">
+<head>
+    <meta charset="UTF-8">
+    <title>Study Planner</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'delete_class.css' %}">
+</head>
+<body>
+    <h2>{{ user.name }}'s Classes</h2>
+
+    <ul>
+        {% for class in classes %}
+            <li>
+                <strong>{{ class.class_name }}</strong> - 
+                Type: {{ class.class_type }} |
+                Time: {{ class.class_time }} |
+                Grade: {{ class.class_grade }} |
+                Create Grade: {{ class.create_grade }} |
+                Created at: {{ class.created_at }}
+            </li>
+        {% empty %}
+            <li>No classes found.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

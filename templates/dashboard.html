@@ -2,14 +2,15 @@
 <html lang="ko-kr">
 <head>
     <meta charset="UTF-8">
-    <title>Dashboard</title>
+    <title>Study Planner</title>
     <link rel="stylesheet" type="text/css" href="{% static 'dashboard.css' %}">
 </head>
 <body>
     <div class="container">
-        <h1>Hello, {{ user.email }}!</h1>
-        <p>You are now logged in to the dashboard.</p>
-        <a href="{% url 'logout' %}" class="logout">Logout</a>
+        <h1 class="head-name">Hello, {{ user.name }}!</h1>
+        <a class="create-class-btn" href="{% url 'create_class' %}">Create</a>
+        <a class="delete-btn" href="{% url 'delete_class' %}">Delete</a>
+        <a class="logout-btn" href="{% url 'logout' %}">Logout</a>
     </div>
     <div class="schedule__container">
         <div class="days__container">

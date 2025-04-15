@@ -1,0 +1,18 @@
+{% load static %}
+<html lang="ko-kr">
+<head>
+    <meta charset="UTF-8">
+    <title>Study Planner</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'create_class.css' %}">
+</head>
+<body>
+    <div class="form-box active" id="create-class-form">
+        <form method="post">
+            {% csrf_token %}
+            <h2>Create Class</h2>
+            {{ form.as_p }}
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</body>
+</html>
