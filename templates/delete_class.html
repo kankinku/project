@@ -6,23 +6,63 @@
     <link rel="stylesheet" type="text/css" href="{% static 'delete_class.css' %}">
 </head>
 <body>
-    <div class="container">
-        <h1>{{ user.name }}'s Classes</h1>
-    </div>
-    <ul>
-        {% for class in classes %}
-            <input type="checkbox" name="agree" value="yes">
-            <div class="class_list_info">
-                <strong>{{ class.class_name }}</strong> - 
-                Type: {{ class.class_type }} |
-                Time: {{ class.class_time }} |
-                Grade: {{ class.class_grade }} |
-                Create Grade: {{ class.create_grade }} |
-                Created at: {{ class.created_at }}
-            </div>
-        {% empty %}
-            <li>No classes found.</li>
-        {% endfor %}
-    </ul>
+    <form id="deleteForm" method="POST">
+        {% csrf_token %}
+        <ul class="class_list">
+            {% for class in classes %}
+                <li class="class_item">
+                    <label class="checkbox_label">
+                        <input type="checkbox" name="selected_classes"
+                            value="{{ class.class_id }}" 
+                            class="checkbox"
+                            data-class_name="{{ class.class_name }}"
+                            data-class_type="{{ class.class_type }}"
+                            data-class_time="{{ class.class_time }}">
+                        <div class="class_list_info">
+                            <strong>{{ class.class_name }}<br></strong> - 
+                            Type: {{ class.class_type }} |
+                            Time: {{ class.class_time }} |
+                            Grade: {{ class.class_grade }} |
+                            Create Grade: {{ class.create_grade }} |
+                        </div>
+                    </label>
+                </li>
+            {% empty %}
+                <li>No classes found.</li>
+            {% endfor %}
+        </ul>
+        <button type="submit" class="delete_btn"><h2>Delete Button</h2></button>
+    </form>
 </body>
+<script>
+    document.getElementById("deleteForm").addEventListener("submit", function (e) {
+        e.preventDefault();  // 기본 전송 막기
+    
+        const checkboxes = document.querySelectorAll('.checkbox:checked');
+        if (checkboxes.length === 0) {
+            alert("삭제할 항목을 선택해주세요.");
+            return;
+        }
+    
+        // 선택된 ID들을 모아서 POST로 전송
+        const selectedIds = Array.from(checkboxes).map(cb => cb.value);
+    
+        // 서버로 보낼 form 구성
+        const formData = new FormData();
+        formData.append('csrfmiddlewaretoken', document.querySelector('[name=csrfmiddlewaretoken]').value);
+        selectedIds.forEach(id => formData.append('selected_ids[]', id));
+    
+        fetch("{% url 'delete_classes' %}", {
+            method: "POST",
+            body: formData,
+        }).then(response => {
+            if (response.ok) {
+                alert("삭제 완료!");
+                location.reload();
+            } else {
+                alert("삭제 중 오류 발생.");
+            }
+        });
+    });
+    </script>
 </html>

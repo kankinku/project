@@ -10,6 +10,6 @@ urlpatterns = [
     path('create_class/', views.create_class, name='create_class'),
     path('delete_class/', views.delete_class, name='delete_class'),
     path('grade_summary/', views.grade_summary, name='grade_summary'),
-
+    path('delete/submit/', views.delete_selected_classes, name='delete_classes'),
 ]
 

@@ -8,19 +8,6 @@
     font-family: "Poppins", sans-serif;
 }
 
-.container {
-    padding-left: 20px;
-    position: fixed;   /* 화면에 고정 */
-    top: 0;             /* 위에서 0px */
-    left: 0;            /* 왼쪽에서 0px */
-    width: 100%;        /* 전체 너비 */
-    height: 60px;       /* 높이 */
-
-    background-color: #c9d6ff;
-    color: white;
-    display: flex;
-    z-index: 1000;      /* 다른 요소 위에 표시 */
-}
 
 body{
     margin-top: 60px;
@@ -32,6 +19,7 @@ body{
     background: linear-gradient(to right, #e2e2e2, #c9d6ff);
     color: #333;
 }
+
 
 .class_list_info{
     width: 100%;
@@ -46,4 +34,47 @@ body{
     font-weight: 500;
     margin-top: 10px;
     transition: 0.5s;
+    flex-grow: 1;
+}
+ul {
+    list-style: none; 
+    background: #fff;
+    border-radius: 10px;
+    padding: 30px;
+    width: 900px;
+    max-width: 900px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.checkbox_label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+}
+
+.checkbox {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+.class_list_info {
+    background-color: #a0b5fa;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    border-radius: 5px;
+    flex-grow: 1;
+}
+
+.delete_btn {
+    color: #a0b5fa;
+    margin-left: 80%;
+    margin-top: 40px;
+    background-color: white;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    border: none;
+    width: 170px;
+    height: 55px;
+    border-radius: 5px;
 }

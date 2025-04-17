@@ -1,6 +1,7 @@
 import ast
 import json
 from pyexpat.errors import messages
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
@@ -182,6 +183,23 @@ def delete_class(request):
         },
         'classes': class_list
     })
+    
+def delete_selected_classes(request):
+    if request.method == "POST":
+        if 'user_email' not in request.session:
+            return JsonResponse({'status': 'unauthorized'}, status=401)
+
+        try:
+            user = user_info.objects.get(UID=request.session['user_email'])
+        except user_info.DoesNotExist:
+            return JsonResponse({'status': 'unauthorized'}, status=401)
+
+        selected_ids = request.POST.getlist('selected_ids[]')
+        ClassInfo.objects.filter(class_id__in=selected_ids, UID=user).delete()
+
+        return JsonResponse({'status': 'ok'})
+
+    return JsonResponse({'status': 'invalid'}, status=400)
     
 # 학점 계산   
 def grade_summary(request):

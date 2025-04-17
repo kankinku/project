@@ -13,6 +13,7 @@
         <a class="summary-btn" href="{% url 'grade_summary' %}">Summary</a>
         <a class="logout-btn" href="{% url 'logout' %}">Logout</a>
     </div>
+
     <div class="schedule__container">
         <div class="days__container">
             <span class="corner"></span>
@@ -24,137 +25,78 @@
             <div class="day">Friday</div>
             <div class="day">Saturday</div>
         </div>
-        <div class="part__day">
-            <span class="time">9am <br> - <br> 10pm</span>
-            <div class="task"></div>
-            <div class="task"></div>
-            <div class="task"></div>
-            <div class="task"></div>
-            <div class="task"></div>
-            <div class="task"></div>
-            <div class="task"></div>
-        </div>
-        <div class="part__day">
-            <span class="time">10am <br> - <br> 11am</span>
-            <div class="task"></div>
-            <div class="task"></div>
-            <div class="task"></div>
-            <div class="task"></div>
-            <div class="task"></div>
-            <div class="task"></div>
-            <div class="task"></div>
-        </div>
-        <div class="part__day">
-            <span class="time">11am <br> - <br> 12am</span>
-            <div class="task"></div>
-            <div class="task"></div>
-            <div class="task"></div>
-            <div class="task"></div>
-            <div class="task"></div>
-            <div class="task"></div>
-            <div class="task"></div>
-        </div>
-        <div class="part__day">
-            <span class="time">12am <br> - <br> 1pm</span>
-            <div class="task"></div>
-            <div class="task"></div>
-            <div class="task"></div>
-            <div class="task"></div>
-            <div class="task"></div>
-            <div class="task"></div>
-            <div class="task"></div>
-        </div>
-        <div class="part__day">
-            <span class="time">1pm <br> - <br> 2pm</span>
-            <div class="task"></div>
-            <div class="task"></div>
-            <div class="task"></div>
-            <div class="task"></div>
-            <div class="task"></div>
-            <div class="task"></div>
-            <div class="task"></div>
-        </div>
-        <div class="part__day">
-            <span class="time">2pm <br> - <br> 3pm</span>
-            <div class="task"></div>
-            <div class="task"></div>
-            <div class="task"></div>
-            <div class="task"></div>
-            <div class="task"></div>
-            <div class="task"></div>
-            <div class="task"></div>
-        </div>
-        <div class="part__day">
-            <span class="time">3pm <br> - <br> 4pm</span>
-            <div class="task"></div>
-            <div class="task"></div>
-            <div class="task"></div>
-            <div class="task"></div>
-            <div class="task"></div>
-            <div class="task"></div>
-            <div class="task"></div>
-        </div>
-        <div class="part__day">
-            <span class="time">5pm <br> - <br> 6pm</span>
-            <div class="task"></div>
-            <div class="task"></div>
-            <div class="task"></div>
-            <div class="task"></div>
-            <div class="task"></div>
-            <div class="task"></div>
-            <div class="task"></div>
-        </div>
+
+        {% for i in "012345678" %}
+            {% with hour=9|add:forloop.counter0 %}
+            <div class="part__day">
+                <span class="time">
+                    {{ hour }}{% if hour < 12 %}am{% else %}pm{% endif %} <br> - <br> 
+                    {{ hour|add:"1" }}{% if hour|add:"1" < 12 or hour|add:"1" == 24 %}am{% else %}pm{% endif %}
+                </span>
+                {% for j in "0123456" %}
+                    <div class="task"></div>
+                {% endfor %}
+            </div>
+            {% endwith %}
+        {% endfor %}
     </div>
-</body>
-<script>
-    const classes = {{ class_list_json|safe }};
-    const dayMap = { '일': 0, '월': 1, '화': 2, '수': 3, '목': 4, '금': 5, '토': 6 };
-    const rows = document.querySelectorAll('.part__day');
 
-    // 과목별 고유 색상 생성 (기본 팔레트 또는 해시 기반)
-    const subjectColors = {};
-    const colorPalette = [
-        '#6fc6ef', '#38ddeb', '#55eeca', '#a4f899',
-        '#D8A7B1', '#4A5568', '#B9A7D1', '#A0C1C9'
-    ];
-    let colorIndex = 0;
+    <script>
+        const classes = {{ class_list_json|safe }};
+        const dayMap = { '일': 0, '월': 1, '화': 2, '수': 3, '목': 4, '금': 5, '토': 6 };
+        const rows = document.querySelectorAll('.part__day');
 
-    function getColorForSubject(subject) {
-        if (!subjectColors[subject]) {
-            subjectColors[subject] = colorPalette[colorIndex % colorPalette.length];
-            colorIndex++;
-        }
-        return subjectColors[subject];
-    }
+        const subjectColors = {};
+        const colorPalette = ['#6fc6ef', '#38ddeb', '#55eeca', '#a4f899', '#D8A7B1', '#4A5568', '#B9A7D1', '#A0C1C9'];
+        let colorIndex = 0;
 
-    classes.forEach(cls => {
-        const color = getColorForSubject(cls.name);
-        cls.time.forEach(slot => {
-            const dayChar = slot[0];
-            const timeNum = parseInt(slot.slice(1));
-            const colIdx = dayMap[dayChar];
-            const rowIdx = timeNum - 1;
-
-            const cell = rows[rowIdx].querySelectorAll('.task')[colIdx];
-            if (cell) {
-                cell.style.backgroundColor = color;
-                cell.textContent = cls.name;
-                cell.style.color = "#f3f9ff";
-                cell.style.fontSize = "1.5rem";
+        function getColorForSubject(subject) {
+            if (!subjectColors[subject]) {
+                subjectColors[subject] = colorPalette[colorIndex % colorPalette.length];
+                colorIndex++;
             }
+            return subjectColors[subject];
+        }
+
+        classes.forEach(cls => {
+            const color = getColorForSubject(cls.name);
+            cls.time.forEach(slot => {
+                const dayChar = slot[0];
+                const timeNum = parseInt(slot.slice(1));
+                const colIdx = dayMap[dayChar];
+                const rowIdx = timeNum - 1;
+
+                const cell = rows[rowIdx]?.querySelectorAll('.task')[colIdx];
+                if (cell) {
+                    cell.style.backgroundColor = color;
+                    cell.textContent = cls.name;
+                    cell.style.color = "#f3f9ff";
+                    cell.style.fontSize = "1.2rem";
+                }
+            });
         });
-    });
 
-    const tasks = document.querySelectorAll('.task');
+        function highlightCurrentTimeCell() {
+            const now = new Date();
+            const currentDay = now.getDay();  // Sunday = 0
+            const currentHour = now.getHours();  // 0~23
 
-    tasks.forEach(function(task) {
-        task.addEventListener('click', function () {
-            task.classList.toggle('active');
+            const rowIdx = currentHour - 9;
+            if (rowIdx < 0 || rowIdx >= rows.length) return;
+
+            const cell = rows[rowIdx]?.querySelectorAll('.task')[currentDay];
+            if (cell) {
+                cell.classList.add('blinking-border');
+            }
+        }
+
+        highlightCurrentTimeCell();
+
+        document.querySelectorAll('.task').forEach(task => {
+            task.addEventListener('click', function () {
+                task.classList.toggle('active');
+            });
         });
-    });
-
-</script>
+    </script>
+</body>
 </html>
-
-
-{% comment %}  이런식으로 정보 불러오면 됨 {{ user.email }} {% endcomment %}
