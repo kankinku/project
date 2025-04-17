@@ -245,7 +245,7 @@ def grade_summary(request):
         if grade in GRADE_TO_POINT:
             point = GRADE_TO_POINT[grade]
             all_points.append(point)
-            if cls.class_type == 'type1':
+            if cls.class_type == '전공':
                 major_points.append(point)
 
     avg_all = round(sum(all_points) / len(all_points), 2) if all_points else 0.0
