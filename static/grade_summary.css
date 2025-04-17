@@ -1,0 +1,181 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap');
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(to right, #e2e2e2, #c9d6ff);
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    width: 100vw;
+}
+
+.container {
+    width: 85vw;
+    max-width: 1200px;
+    margin: 5vh auto;
+    background-color: #ffffff;
+    padding: 3vh 3vw;
+    border-radius: 14px;
+    box-shadow: 0 5px 16px rgba(0, 0, 0, 0.12);
+}
+
+h2 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 3vh;
+    font-size: 2.5vw;
+}
+
+table {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+    margin-bottom: 2.5vh;
+    font-size: 1.2vw;
+    border: none;
+}
+
+th, td {
+    border: 2px solid #a4a4a4;
+    padding: 1.2vh 0.8vw;
+    text-align: center;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+th:first-child,
+td:first-child {
+    width: 50%; /* 과목명 */
+}
+
+th:last-child,
+td:last-child {
+    width: 50%; /* 성적 */
+}
+
+th {
+    background-color: #3498db;
+    color: white;
+    font-size: 1.5vw;
+    border: 2px solid #3498db7d;
+}
+
+td {
+    background-color: #ffffff;
+    font-size: 1.5vw;
+    font-weight: bold;
+}
+
+td.class-name {
+    font-size: 1.4vw;  /* 기존 1.2vw보다 살짝만 키움 */
+    font-weight: 500;  /* 약간 더 진하게 */
+}
+
+/* 성적 입력 필드 (셀렉트박스) 확대 */
+select {
+    font-size: 1.3vw;
+    padding: 0.6vh 1vw;
+    height: 5vh;
+    min-width: 100px;
+    border-radius: 6px;
+}
+
+/* 체크박스/라디오용 (혹시 쓸 경우 대비) */
+input[type="checkbox"],
+input[type="radio"] {
+    transform: scale(1.5);
+    margin: 0.5vw;
+}
+
+button {
+    display: block;
+    width: 100%;
+    padding: 1.5vh;
+    background-color: #fba6d4;
+    color: white;
+    font-size: 1.4vw;
+    font-weight: bold;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #f9d0e6;
+}
+
+.avg-text {
+    font-size: 2vw;
+    text-align: center;
+    margin-top: 2vh;
+    color: #010101;
+}
+
+.avg-label {
+    font-weight: normal;  /* 숫자 제외하고 일반 굵기 */
+}
+
+.avg-value {
+    font-weight: bold;    /* 숫자만 굵게 */
+}
+
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5); 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+/* 팝업 내부 박스 */
+.popup-content {
+    text-align: center;
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+/* 이미지 */
+.popup-image {
+    width: 400px;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+/* 텍스트 */
+.popup-text {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #e74c3c;
+}
+/* 닫기 버튼 */
+.close-btn {
+    background-color: #db3131;
+    color: white;
+    padding: 1vh 2vw;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 1.2vw;
+    transition: background-color 0.3s;
+}
+
+.close-btn:hover {
+    background-color: #db3131;
+}
+
+#popup-bad, #popup-good {
+    visibility: visible; /* 팝업이 보이도록 설정 */
+}
+
+
+
+
+

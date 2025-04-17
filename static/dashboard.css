@@ -37,7 +37,22 @@ body{
     color: white;
     position: fixed;   
     top: 0;         
-    right: 150px;
+    right: 320px;
+    margin-top: 10px;
+    margin-right: 10px;
+    width: 120px;
+    height: 55px;
+    /* border: solid 2px white; */
+    text-align: center;
+    justify-content: center;
+}
+
+.summary-btn {
+    font-size: 30px;
+    color: white;
+    position: fixed;   
+    top: 0;         
+    right: 180px;
     margin-top: 10px;
     margin-right: 10px;
     width: 120px;
@@ -52,7 +67,7 @@ body{
     color: white;
     position: fixed;   
     top: 0;         
-    right: 280px;
+    right: 450px;
     margin-top: 10px;
     margin-right: 10px;
     width: 120px;
@@ -72,12 +87,12 @@ body{
     color: white;
     display: flex;
     z-index: 1000;      /* 다른 요소 위에 표시 */
-  }
+}
 
-  .head-name {
+.head-name {
     margin-top: 5px;
     margin-left: 30px;
-  }
+}
 
 
 .schedule__container{
@@ -134,4 +149,8 @@ body{
     justify-content: center;
     align-items: center;
     font-size: 2rem;
+}
+
+.task.active{
+    border: solid 2px white;
 }

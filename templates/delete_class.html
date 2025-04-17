@@ -6,18 +6,20 @@
     <link rel="stylesheet" type="text/css" href="{% static 'delete_class.css' %}">
 </head>
 <body>
-    <h2>{{ user.name }}'s Classes</h2>
-
+    <div class="container">
+        <h1>{{ user.name }}'s Classes</h1>
+    </div>
     <ul>
         {% for class in classes %}
-            <li>
+            <input type="checkbox" name="agree" value="yes">
+            <div class="class_list_info">
                 <strong>{{ class.class_name }}</strong> - 
                 Type: {{ class.class_type }} |
                 Time: {{ class.class_time }} |
                 Grade: {{ class.class_grade }} |
                 Create Grade: {{ class.create_grade }} |
                 Created at: {{ class.created_at }}
-            </li>
+            </div>
         {% empty %}
             <li>No classes found.</li>
         {% endfor %}

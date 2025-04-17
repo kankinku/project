@@ -1,0 +1,49 @@
+/* create_class.css */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+.container {
+    padding-left: 20px;
+    position: fixed;   /* 화면에 고정 */
+    top: 0;             /* 위에서 0px */
+    left: 0;            /* 왼쪽에서 0px */
+    width: 100%;        /* 전체 너비 */
+    height: 60px;       /* 높이 */
+
+    background-color: #c9d6ff;
+    color: white;
+    display: flex;
+    z-index: 1000;      /* 다른 요소 위에 표시 */
+}
+
+body{
+    margin-top: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(to right, #e2e2e2, #c9d6ff);
+    color: #333;
+}
+
+.class_list_info{
+    width: 100%;
+    padding: 12px;
+    background: #7494ec;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    color: #fff;
+    border: none;
+    margin-bottom: 20px;
+    font-weight: 500;
+    margin-top: 10px;
+    transition: 0.5s;
+}

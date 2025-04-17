@@ -10,6 +10,7 @@
         <h1 class="head-name">Hello, {{ user.name }}!</h1>
         <a class="create-class-btn" href="{% url 'create_class' %}">Create</a>
         <a class="delete-btn" href="{% url 'delete_class' %}">Delete</a>
+        <a class="summary-btn" href="{% url 'grade_summary' %}">Summary</a>
         <a class="logout-btn" href="{% url 'logout' %}">Logout</a>
     </div>
     <div class="schedule__container">
@@ -105,6 +106,54 @@
         </div>
     </div>
 </body>
+<script>
+    const classes = {{ class_list_json|safe }};
+    const dayMap = { '일': 0, '월': 1, '화': 2, '수': 3, '목': 4, '금': 5, '토': 6 };
+    const rows = document.querySelectorAll('.part__day');
+
+    // 과목별 고유 색상 생성 (기본 팔레트 또는 해시 기반)
+    const subjectColors = {};
+    const colorPalette = [
+        '#6fc6ef', '#38ddeb', '#55eeca', '#a4f899',
+        '#D8A7B1', '#4A5568', '#B9A7D1', '#A0C1C9'
+    ];
+    let colorIndex = 0;
+
+    function getColorForSubject(subject) {
+        if (!subjectColors[subject]) {
+            subjectColors[subject] = colorPalette[colorIndex % colorPalette.length];
+            colorIndex++;
+        }
+        return subjectColors[subject];
+    }
+
+    classes.forEach(cls => {
+        const color = getColorForSubject(cls.name);
+        cls.time.forEach(slot => {
+            const dayChar = slot[0];
+            const timeNum = parseInt(slot.slice(1));
+            const colIdx = dayMap[dayChar];
+            const rowIdx = timeNum - 1;
+
+            const cell = rows[rowIdx].querySelectorAll('.task')[colIdx];
+            if (cell) {
+                cell.style.backgroundColor = color;
+                cell.textContent = cls.name;
+                cell.style.color = "#f3f9ff";
+                cell.style.fontSize = "1.5rem";
+            }
+        });
+    });
+
+    const tasks = document.querySelectorAll('.task');
+
+    tasks.forEach(function(task) {
+        task.addEventListener('click', function () {
+            task.classList.toggle('active');
+        });
+    });
+
+</script>
 </html>
 
 

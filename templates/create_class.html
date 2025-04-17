@@ -7,12 +7,182 @@
 </head>
 <body>
     <div class="form-box active" id="create-class-form">
-        <form method="post">
+        <form method="post" onsumit="return send_classTime()">
             {% csrf_token %}
             <h2>Create Class</h2>
-            {{ form.as_p }}
-            <button type="submit">Submit</button>
+
+            {{ form.class_name.label_tag }} {{ form.class_name }}
+            {{ form.class_type.label_tag }} {{ form.class_type }}
+
+            <div id="selected-times-display"></div>
+            <div id="selected-times-hidden" style="display:none;"></div>
+            {{ form.class_time.as_hidden }}
+            <button type="button" onclick="showForm('select_schedule')">Select Schedule</button>
+            {{ form.class_grade.label_tag }} {{ form.class_grade }}
+
+            <a href="#" onclick="send_classTime()"><button type="submit">Submit</button></a>
         </form>
     </div>
+    <div class="form-box" id="select_schedule">
+        <div class="schedule__container">
+            <div class="days__container">
+                <span class="corner"></span>
+                <div class="day">Sunday</div>
+                <div class="day">Monday</div>
+                <div class="day">Tuesday</div>
+                <div class="day">Wednesday</div>
+                <div class="day">Thursday</div>
+                <div class="day">Friday</div>
+                <div class="day">Saturday</div>
+            </div>
+            <div class="part__day">
+                <span class="time">9am <br> - <br> 10pm</span>
+                <div class="task"></div>
+                <div class="task"></div>
+                <div class="task"></div>
+                <div class="task"></div>
+                <div class="task"></div>
+                <div class="task"></div>
+                <div class="task"></div>
+            </div>
+            <div class="part__day">
+                <span class="time">10am <br> - <br> 11am</span>
+                <div class="task"></div>
+                <div class="task"></div>
+                <div class="task"></div>
+                <div class="task"></div>
+                <div class="task"></div>
+                <div class="task"></div>
+                <div class="task"></div>
+            </div>
+            <div class="part__day">
+                <span class="time">11am <br> - <br> 12am</span>
+                <div class="task"></div>
+                <div class="task"></div>
+                <div class="task"></div>
+                <div class="task"></div>
+                <div class="task"></div>
+                <div class="task"></div>
+                <div class="task"></div>
+            </div>
+            <div class="part__day">
+                <span class="time">12am <br> - <br> 1pm</span>
+                <div class="task"></div>
+                <div class="task"></div>
+                <div class="task"></div>
+                <div class="task"></div>
+                <div class="task"></div>
+                <div class="task"></div>
+                <div class="task"></div>
+            </div>
+            <div class="part__day">
+                <span class="time">1pm <br> - <br> 2pm</span>
+                <div class="task"></div>
+                <div class="task"></div>
+                <div class="task"></div>
+                <div class="task"></div>
+                <div class="task"></div>
+                <div class="task"></div>
+                <div class="task"></div>
+            </div>
+            <div class="part__day">
+                <span class="time">2pm <br> - <br> 3pm</span>
+                <div class="task"></div>
+                <div class="task"></div>
+                <div class="task"></div>
+                <div class="task"></div>
+                <div class="task"></div>
+                <div class="task"></div>
+                <div class="task"></div>
+            </div>
+            <div class="part__day">
+                <span class="time">3pm <br> - <br> 4pm</span>
+                <div class="task"></div>
+                <div class="task"></div>
+                <div class="task"></div>
+                <div class="task"></div>
+                <div class="task"></div>
+                <div class="task"></div>
+                <div class="task"></div>
+            </div>
+            <div class="part__day">
+                <span class="time">5pm <br> - <br> 6pm</span>
+                <div class="task"></div>
+                <div class="task"></div>
+                <div class="task"></div>
+                <div class="task"></div>
+                <div class="task"></div>
+                <div class="task"></div>
+                <div class="task"></div>
+            </div>
+        </div>
+        <button type="button" onclick="showForm('create-class-form'); return_time()">submit</button>
+    </div>
 </body>
+<script>
+    function showForm(formId) {
+        document.querySelectorAll(".form-box").forEach(form => form.classList.remove("active"));
+        document.getElementById(formId).classList.add("active");
+    }
+    const selectedTasks = new Set(); 
+    document.addEventListener("DOMContentLoaded", function () {
+        const days = ['일','월', '화', '수', '목', '금','토'];
+        const timeSlots = document.querySelectorAll('.part__day'); 
+    
+        timeSlots.forEach((row, timeIndex) => {
+            const tasks = row.querySelectorAll('.task');
+    
+            tasks.forEach((task, dayIndex) => {
+                // data 속성 부여
+                task.dataset.day = days[dayIndex];
+                task.dataset.timeIndex = timeIndex + 1;
+    
+                // 클릭 이벤트
+                task.addEventListener('click', function () {
+                    task.classList.toggle('active');
+    
+                    const key = `${task.dataset.day}${task.dataset.timeIndex}`;
+                    if (selectedTasks.has(key)) {
+                        selectedTasks.delete(key);
+                    } else {
+                        selectedTasks.add(key);
+                    }
+                });
+            });
+        });
+    });
+    
+    function return_time(){
+        const selectedTimesDisplay = document.getElementById("selected-times-display");
+        const selectedTimesHidden = document.getElementById("selected-times-hidden");
+        const selectedArray = Array.from(selectedTasks);
+    
+        if (selectedArray.length === 0) {
+            selectedTimesDisplay.style.display = "none"; // 아무것도 없으면 div 숨기기
+        } else {
+            selectedTimesDisplay.style.display = "block"; // 보이기
+            selectedTimesDisplay.innerText = "📅 선택된 시간들: " + selectedArray.join(', ');
+            selectedTimesHidden.innerText = selectedArray.join(' ')
+        }
+    }
+
+    function send_classTime(){
+        const selectedTimesHidden = document.getElementById("selected-times-hidden");
+        const divContent = document.getElementById("selected-times-hidden").innerText;
+        const selectedList = divContent.split(" ").map(String);
+        const jsonString = JSON.stringify(selectedList);
+        document.getElementById("id_class_time").value = jsonString;
+        console.log(jsonString)
+    }
+
+    {% comment %} function prepareFormBeforeSubmit() {
+        const divContent = document.getElementById("selected-times-hidden").innerText;
+        const selectedList = divContent
+            .split(" ")
+            .map(str => str.trim())
+        const hiddenInput = document.getElementById("class-time-input");
+        hiddenInput.value = JSON.stringify(selectedList);
+    } {% endcomment %}
+
+</script>
 </html>

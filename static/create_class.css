@@ -1,13 +1,14 @@
+/* create_class.css */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap');
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "Poppins", serif;
+    font-family: "Poppins", sans-serif;
 }
 
-body{
+body {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -15,22 +16,48 @@ body{
     min-height: 100vh;
     background: linear-gradient(to right, #e2e2e2, #c9d6ff);
     color: #333;
+    padding: 20px;
 }
 
-p {
+.form-box {
+    background: #fff;
+    border-radius: 10px;
+    padding: 30px;
     width: 100%;
-    padding: 12px;
-    background: #eee;
-    border-radius: 6px;
-    border: none;
-    outline: none;
-    font-size: 16px;
-    color: #333;
+    max-width: 500px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    display: none;
+}
+
+.form-box:nth-child(2){
+    display: none;
+    background: #fff;
+    border-radius: 10px;
+    padding: 30px;
+    width: 900px;
+    max-width: 900px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.form-box.active{
+    display: block;
+}
+
+h2 {
+    font-size: 24px;
+    font-weight: 700;
     margin-bottom: 20px;
 }
 
+label {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 8px;
+    display: block;
+}
+
 input,
-select {
+select{
     width: 100%;
     padding: 12px;
     background: linear-gradient(to right, #e2e2e2, #c9d6ff);
@@ -42,14 +69,16 @@ select {
     margin-bottom: 20px;
 }
 
-p a {
-    color: #7494ec;
-    text-decoration: none;
-}
-
-
-p a:hover {
-    text-decoration: underline;
+.show-btn{
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(to right, #e2e2e2, #c9d6ff);
+    border-radius: 6px;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 20px;
 }
 
 button {
@@ -61,7 +90,118 @@ button {
     font-size: 16px;
     color: #fff;
     border: none;
-    font-weight: 500;
     margin-bottom: 20px;
+    font-weight: 500;
+    margin-top: 10px;
     transition: 0.5s;
 }
+
+
+.time-checkbox-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-left: 10px;
+    width: 100%;
+}
+
+/* .time-checkbox-grid > div {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  } */
+
+.time-checkbox-grid label {
+    display: flex;
+    /* flex-direction: row;   체크박스 ← 텍스트 */
+    align-items: center;
+    gap: 10px;
+    font-size: 16px;
+    white-space: nowrap; 
+    width: fit-content;
+      /* 줄바꿈 방지 */
+}
+
+.time-checkbox-grid input[type="checkbox"] {
+    transform: scale(1.2);
+    margin : 0;
+    padding : 0;
+}
+
+
+/* ------------ */
+.head-name {
+    margin-top: 5px;
+    margin-left: 30px;
+}
+
+a {
+    width: 100%;
+    height: 10px;
+}
+
+
+.schedule__container{
+    background-color: transparent;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+}
+
+.days__container{
+    width: 100%;
+    display: flex;
+}
+
+.corner{
+    width: 50px;
+    height: 70px;
+    margin: 2px;
+}
+
+.day{
+    width: 100px;
+    border: solid 2px white;
+    color: #9bafd9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2px;
+}
+
+.part__day{
+    display: flex;
+}
+
+.time{
+    font-size: 14px;
+    width: 50px;
+    height: 70px;
+    text-align: center;
+    color: #9bafd9;
+    border: solid 2px white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2px;
+}
+
+.task{
+    /* background-color: black; */
+    height: 70px;
+    width: 100px;
+    margin: 2px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: solid 2px #9bafd9;
+    font-size: 2rem;
+}
+
+.task.active {
+    background: #c9d6ff;
+    color: white;
+    border-radius: linear-gradient(to right, #e2e2e2, #c9d6ff);
+}
+
