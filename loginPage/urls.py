@@ -11,5 +11,6 @@ urlpatterns = [
     path('delete_class/', views.delete_class, name='delete_class'),
     path('grade_summary/', views.grade_summary, name='grade_summary'),
     path('delete/submit/', views.delete_selected_classes, name='delete_classes'),
+    path('delete-classes/', views.delete_selected_classes, name='delete_selected_classes'),
 ]
 

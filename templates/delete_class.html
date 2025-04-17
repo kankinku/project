@@ -1,4 +1,5 @@
 {% load static %}
+<!DOCTYPE html>
 <html lang="ko-kr">
 <head>
     <meta charset="UTF-8">
@@ -23,7 +24,7 @@
                             Type: {{ class.class_type }} |
                             Time: {{ class.class_time }} |
                             Grade: {{ class.class_grade }} |
-                            Create Grade: {{ class.create_grade }} |
+                            Create Grade: {{ class.create_grade }}
                         </div>
                     </label>
                 </li>
@@ -31,38 +32,49 @@
                 <li>No classes found.</li>
             {% endfor %}
         </ul>
-        <button type="submit" class="delete_btn"><h2>Delete Button</h2></button>
+
+        <!-- Delete Button -->
+        <button type="button" class="delete_btn" onclick="deleteSelectedClasses()">
+            <h2>Delete Button</h2>
+        </button>
     </form>
-</body>
-<script>
-    document.getElementById("deleteForm").addEventListener("submit", function (e) {
-        e.preventDefault();  // 기본 전송 막기
-    
-        const checkboxes = document.querySelectorAll('.checkbox:checked');
-        if (checkboxes.length === 0) {
-            alert("삭제할 항목을 선택해주세요.");
-            return;
-        }
-    
-        // 선택된 ID들을 모아서 POST로 전송
-        const selectedIds = Array.from(checkboxes).map(cb => cb.value);
-    
-        // 서버로 보낼 form 구성
-        const formData = new FormData();
-        formData.append('csrfmiddlewaretoken', document.querySelector('[name=csrfmiddlewaretoken]').value);
-        selectedIds.forEach(id => formData.append('selected_ids[]', id));
-    
-        fetch("{% url 'delete_classes' %}", {
-            method: "POST",
-            body: formData,
-        }).then(response => {
-            if (response.ok) {
-                alert("삭제 완료!");
-                location.reload();
-            } else {
-                alert("삭제 중 오류 발생.");
+
+    <script>
+        function deleteSelectedClasses() {
+            const checkboxes = document.querySelectorAll('.checkbox:checked');
+            if (checkboxes.length === 0) {
+                alert("삭제할 항목을 선택해주세요.");
+                return;
             }
-        });
-    });
+
+            const selectedIds = Array.from(checkboxes).map(cb => cb.value);
+
+            const formData = new FormData();
+            formData.append('csrfmiddlewaretoken', document.querySelector('[name=csrfmiddlewaretoken]').value);
+            selectedIds.forEach(id => formData.append('selected_ids[]', id));
+
+            fetch("{% url 'delete_selected_classes' %}", {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'ok') {
+                    if (confirm("삭제에 성공했습니다!\n대시보드로 이동할까요?")) {
+                        window.location.href = "{% url 'dashboard' %}";
+                    } else {
+                        alert("삭제는 완료되었으며, 이 페이지에 머무릅니다.");
+                        location.reload();
+                    }
+                } else {
+                    alert("삭제 실패: " + data.status);
+                }
+            })
+            .catch(error => {
+                console.error("에러 발생:", error);
+                alert("서버 요청 중 문제가 발생했습니다.");
+            });
+        }
     </script>
+</body>
 </html>
