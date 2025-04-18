@@ -14,7 +14,23 @@ github 링크 : [https://github.com/kankinku/project](https://github.com/kankink
 | 항목 | `user_info` | `class_info` |
 |------|-------------|--------------|
 | **구조** | `user_info`<br>---------------<br>`UID` (Primary Key)<br>`passwd`<br>`name` | `class_info`<br>---------------<br>`UID`<br>`class_name`<br>`class_type`<br>`class_time`<br>`class_grade`<br>`create_grade` |
-| **코드** | ```sql<br>CREATE TABLE user_info (<br>  UID VARCHAR(50) PRIMARY KEY,<br>  passwd VARCHAR(255) NOT NULL,<br>  name VARCHAR(100) NOT NULL,<br>  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,<br>  updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP<br>);<br>``` | ```sql<br>CREATE TABLE class_info (<br>  class_id INT AUTO_INCREMENT PRIMARY KEY,<br>  UID VARCHAR(50),<br>  class_name VARCHAR(100) NOT NULL,<br>  class_type VARCHAR(50),<br>  class_time VARCHAR(50),<br>  class_grade VARCHAR(10),<br>  create_grade VARCHAR(10),<br>  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,<br>  FOREIGN KEY (UID) REFERENCES user_info(UID)<br>);<br>``` |
+| **코드** | <pre>CREATE TABLE user_info (
+  UID VARCHAR(50) PRIMARY KEY,
+  passwd VARCHAR(255) NOT NULL,
+  name VARCHAR(100) NOT NULL,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);</pre> | <pre>CREATE TABLE class_info (
+  class_id INT AUTO_INCREMENT PRIMARY KEY,
+  UID VARCHAR(50),
+  class_name VARCHAR(100) NOT NULL,
+  class_type VARCHAR(50),
+  class_time VARCHAR(50),
+  class_grade VARCHAR(10),
+  create_grade VARCHAR(10),
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (UID) REFERENCES user_info(UID)
+);</pre> |
 
 ---
 
