@@ -162,7 +162,7 @@ body{
 }
 
 .task.active{
-    border: solid 2px white;
+    border: solid 3px white;
 }
 
 @keyframes blink-border {
