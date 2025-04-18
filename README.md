@@ -9,6 +9,15 @@ github 링크 : [https://github.com/kankinku/project](https://github.com/kankink
 
 학점 계산 시스템은 학생의 과목 별 성적 데이터를 바탕으로 학점을 계산하고, 시간표 기반 조회 기능을 제공하는 웹 애플리케이션이다. 학생 로그인 후 성적 입력 및 조회가 가능하며, 시간표 기반 학습 이력 확인 기능이 포함된다.
 
+## ✔️ 데이터 베이스 정의
+
+| 항목 | `user_info` | `class_info` |
+|------|-------------|--------------|
+| **구조** | `user_info`<br>---------------<br>`UID` (Primary Key)<br>`passwd`<br>`name` | `class_info`<br>---------------<br>`UID`<br>`class_name`<br>`class_type`<br>`class_time`<br>`class_grade`<br>`create_grade` |
+| **코드** | ```sql<br>CREATE TABLE user_info (<br>  UID VARCHAR(50) PRIMARY KEY,<br>  passwd VARCHAR(255) NOT NULL,<br>  name VARCHAR(100) NOT NULL,<br>  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,<br>  updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP<br>);<br>``` | ```sql<br>CREATE TABLE class_info (<br>  class_id INT AUTO_INCREMENT PRIMARY KEY,<br>  UID VARCHAR(50),<br>  class_name VARCHAR(100) NOT NULL,<br>  class_type VARCHAR(50),<br>  class_time VARCHAR(50),<br>  class_grade VARCHAR(10),<br>  create_grade VARCHAR(10),<br>  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,<br>  FOREIGN KEY (UID) REFERENCES user_info(UID)<br>);<br>``` |
+
+---
+
 ## CRUD
 
 ✅ **C(Create)**
